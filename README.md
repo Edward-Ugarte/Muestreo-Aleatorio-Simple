@@ -1,11 +1,11 @@
 # Muestreo-Aleatorio-Simple
 📏 Estimación del Tamaño Muestral e Intervalo de Confianza
-Diseñar una muestra es darle forma a la inferencia. Con cuatro métodos y una sola intención: precisión.
+Diseñar una muestra es darle forma a la inferencia. Con tres métodos y una sola intención: precisión.
 
 📌 Propósito
 Este script en Hansl permite:
 - Calcular el tamaño muestral necesario para estimar la media de una población finita con error E, desvío σ, y nivel de confianza Z.
-- Contrastar cuatro métodos algebraicamente equivalentes para verificar consistencia teórica.
+- Contrastar devlos tres métodos algebraicamente equivalentes para verificar consistencia teórica.
 - Calcular el intervalo de confianza al 95 % alrededor de una media poblacional dada (media = 20), con corrección por población finita incluida.
 
 ⚙️ Parámetros de entrada
@@ -19,25 +19,10 @@ Este script en Hansl permite:
 
 
 🧪 Métodos implementados
-Se presentan cuatro métodos equivalentes para estimar el tamaño muestral n bajo población finita:
-- Método A:
-[ n = \frac{Z2}{E^2} \quad \text{con corrección: } \frac{n}{1 + \frac{n}{N}} ]
-- Método B:
-[ n = \frac{N \cdot Z2}{N \cdot E2 \cdot \sigma^2} ]
-- Método C:
-[ n = \frac{\sigma^2}{(E/Z)2}{N}} ]
-- Método D:
-Variante modular con redondeo entero:
-[ n = \left\lceil \frac{Z2}{E^2 (1 + \frac{1}{N})} \right\rceil ]
-Todos convergen numéricamente al mismo valor bajo condiciones ideales.
-
-📐 Intervalo de confianza corregido
-A partir del valor de n (método D), se estima:
-[ IC = \bar{x} \pm Z \cdot \frac{\sigma}{\sqrt{n}} \cdot \sqrt{1 - \frac{n}{N}} ]
-En este caso, el intervalo se centra en la media 20, con un margen corregido según la fracción de muestreo.
+Se presentan  tres métodos 
 
 🔄 Salidas del script
-- Tamaño muestral estimado por cada método (n_A, n_B, n_C, n_D)
+- Tamaño muestral estimado por cada método (n_A, n_B, n_C )
 - Margen de error corregido
 - Límite inferior y superior del intervalo de confianza
 - Resumen numérico claro y etiquetado
