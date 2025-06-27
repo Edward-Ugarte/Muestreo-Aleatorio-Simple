@@ -1,6 +1,6 @@
 # Muestreo-Aleatorio-Simple
 📏 Estimación del Tamaño Muestral e Intervalo de Confianza
-Diseñar una muestra es darle forma a la inferencia. Con tres métodos y una sola intención: precisión.
+Diseñar una muestra es darle forma a la inferencia conn tres métodos y una sola intención: precisión.
 
 📌 Propósito
 Este script en Hansl permite:
