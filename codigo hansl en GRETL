@@ -1,47 +1,106 @@
-# ===========================
-# 🧮 Estimación de tamaño muestral e IC
-# Versión Gretl 2025b - Parámetros calibrados
-# ===========================
+versión de Gretl 2025b
+Sesión actual: 2025-06-27 01:51
 
+# ===========================
+# Estimación de tamaño muestral e IC – Gretl 2025b
+# ===========================
 # === Parámetros poblacionales y de diseño ===
-scalar sigma  = 100        # Desvío estándar poblacional
-scalar sigma2 = sigma^2
-scalar E      = 15         # Error máximo aceptable
-scalar Z      = 1.96       # Valor z (95% de confianza)
-scalar N      = 500        # Tamaño de población finita
-scalar media  = 20         # Nueva media poblacional esperada
-
-# === Método A ===
-scalar n_A1 = (Z^2 * sigma2) / E^2
-scalar n_A  = n_A1 / (1 + (n_A1 / N))
-
-# === Método B ===
-scalar n_B = (N * Z^2 * sigma2) / (N * E^2 + Z^2 * sigma2)
-
-# === Método C ===
-scalar n_C = sigma2 / ((E / Z)^2 + (sigma2 / N))
-
-# === Método D: módulo redondeado ===
-scalar n0 = (Z^2 * sigma2) / E^2
-scalar n_D = n0 / (1 + n0 / N)
-scalar n_redondeado = ceil(n_D)
-
-# === Comparación de tamaños muestrales ===
-printf "\n🚀 ==== Tamaños muestrales estimados ====\n"
-printf "📊 Método A: %.3f\n", n_A
-printf "📊 Método B: %.3f\n", n_B
-printf "📊 Método C: %.3f\n", n_C
-printf "📊 Método D (redondeado): %d\n", n_redondeado
-
+? scalar sigma  = 100
+Se ha reemplazado el escalar sigma = 100
+? scalar sigma2 = sigma^2
+Se ha reemplazado el escalar sigma2 = 10000
+? scalar E      = 15
+Se ha reemplazado el escalar E = 15
+? scalar Z      = 1.96
+Se ha reemplazado el escalar Z = 1.96
+? scalar N      = 500
+Se ha reemplazado el escalar N = 500
+? scalar media  = 20
+Se ha reemplazado el escalar media = 20
+# === Métodos A, B y C ===
+? scalar n_A1 = (Z^2 * sigma2) / E^2
+Se ha reemplazado el escalar n_A1 = 170.738
+? scalar n_A  = n_A1 / (1 + n_A1 / N)
+Se ha reemplazado el escalar n_A = 127.276
+? scalar n_B  = (N * Z^2 * sigma2) / (N * E^2 + Z^2 * sigma2)
+Se ha reemplazado el escalar n_B = 127.276
+? scalar n_C  = sigma2 / ((E / Z)^2 + (sigma2 / N))
+Se ha reemplazado el escalar n_C = 127.276
+# === Selección conservadora (máximo redondeado)
+? scalar n = ceil(max(n_A, max(n_B, n_C)))
+Se ha generado el escalar n = 128
 # === Intervalo de confianza corregido ===
-scalar f      = n_redondeado / N
-scalar margen = Z * sigma / sqrt(n_redondeado) * sqrt(1 - f)
-scalar inf    = media - margen
-scalar sup    = media + margen
+? scalar f      = n / N
+Se ha reemplazado el escalar f = 0.256
+? scalar margen = Z * sigma / sqrt(n) * sqrt(1 - f)
+Se ha reemplazado el escalar margen = 14.943
+? scalar inf    = media - margen
+Se ha generado el escalar inf = 5.05701
+? scalar sup    = media + margen
+Se ha generado el escalar sup = 34.943
+# === Resultados ===
 
-# === Resultados del intervalo de confianza ===
-printf "\n📐 Intervalo de confianza al 95%% (n = %d):\n", n_redondeado
-printf "Media esperada: %.2f\n", media
-printf "Margen de error corregido: %.2f\n", margen
-printf "Límite inferior: %.2f\n", inf
-printf "Límite superior: %.2f\n", sup
+🚀 ==== Tamaños muestrales estimados ====
+📊 Método A: 127.276
+📊 Método B: 127.276
+📊 Método C: 127.276
+✅ Tamaño muestral seleccionado: 128
+
+📐 Intervalo de confianza al 95% (n = 128):
+Media esperada: 20.00
+Margen de error corregido: 14.94
+Límite inferior: 5.06
+Límite superior: 34.94
+versión de Gretl 2025b
+Sesión actual: 2025-06-27 01:52
+
+# ===========================
+# Estimación de tamaño muestral e IC – Gretl 2025b
+# ===========================
+# === Parámetros poblacionales y de diseño ===
+? scalar sigma  = 100
+Se ha reemplazado el escalar sigma = 100
+? scalar sigma2 = sigma^2
+Se ha reemplazado el escalar sigma2 = 10000
+? scalar E      = 15
+Se ha reemplazado el escalar E = 15
+? scalar Z      = 1.96
+Se ha reemplazado el escalar Z = 1.96
+? scalar N      = 500
+Se ha reemplazado el escalar N = 500
+? scalar media  = 20
+Se ha reemplazado el escalar media = 20
+# === Métodos A, B y C ===
+? scalar n_A1 = (Z^2 * sigma2) / E^2
+Se ha reemplazado el escalar n_A1 = 170.738
+? scalar n_A  = n_A1 / (1 + n_A1 / N)
+Se ha reemplazado el escalar n_A = 127.276
+? scalar n_B  = (N * Z^2 * sigma2) / (N * E^2 + Z^2 * sigma2)
+Se ha reemplazado el escalar n_B = 127.276
+? scalar n_C  = sigma2 / ((E / Z)^2 + (sigma2 / N))
+Se ha reemplazado el escalar n_C = 127.276
+# === Selección conservadora (máximo redondeado)
+? scalar n = ceil(max(n_A, max(n_B, n_C)))
+Se ha reemplazado el escalar n = 128
+# === Intervalo de confianza corregido ===
+? scalar f      = n / N
+Se ha reemplazado el escalar f = 0.256
+? scalar margen = Z * sigma / sqrt(n) * sqrt(1 - f)
+Se ha reemplazado el escalar margen = 14.943
+? scalar inf    = media - margen
+Se ha reemplazado el escalar inf = 5.05701
+? scalar sup    = media + margen
+Se ha reemplazado el escalar sup = 34.943
+# === Resultados ===
+
+🚀 ==== Tamaños muestrales estimados ====
+📊 Método A: 127.276
+📊 Método B: 127.276
+📊 Método C: 127.276
+✅ Tamaño muestral seleccionado: 128
+
+📐 Intervalo de confianza al 95% (n = 128):
+Media esperada: 20.00
+Margen de error corregido: 14.94
+Límite inferior: 5.06
+Límite superior: 34.94
