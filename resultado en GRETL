@@ -16,7 +16,7 @@ Se ha generado el escalar Z = 1.96
 Se ha generado el escalar N = 500
 ? scalar media  = 20
 Se ha generado el escalar media = 20
-# Cálculo tamaño muestral (método A + corrección finita)
+# Cálculo tamaño muestral
 ? scalar n_teorico  = 
 Se ha generado el escalar n_teorico = 170.738
 ? scalar n_ajustado = 
