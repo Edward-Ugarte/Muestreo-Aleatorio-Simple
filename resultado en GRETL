@@ -1,7 +1,7 @@
 versión de Gretl 2025b
 Sesión actual: 2025-06-27 23:36
 
-? clear
+? 
 # 🧮 Estimación de tamaño muestral e IC
 # Parámetros básicos
 ? scalar sigma  = 100
@@ -17,20 +17,20 @@ Se ha generado el escalar N = 500
 ? scalar media  = 20
 Se ha generado el escalar media = 20
 # Cálculo tamaño muestral (método A + corrección finita)
-? scalar n_teorico  = (Z^2 * sigma2) / E^2
+? scalar n_teorico  = 
 Se ha generado el escalar n_teorico = 170.738
-? scalar n_ajustado = n_teorico / (1 + n_teorico / N)
+? scalar n_ajustado = 
 Se ha generado el escalar n_ajustado = 127.276
-? scalar n_final    = ceil(n_ajustado)
+? scalar n_final    = 
 Se ha generado el escalar n_final = 128
 # Intervalo de confianza corregido
-? scalar f      = n_final / N
+? scalar f      = 
 Se ha generado el escalar f = 0.256
-? scalar margen = Z * sigma / sqrt(n_final) * sqrt(1 - f)
+? scalar margen = 
 Se ha generado el escalar margen = 14.943
-? scalar inf    = media - margen
+? scalar inf    = 
 Se ha generado el escalar inf = 5.05701
-? scalar sup    = media + margen
+? scalar sup    = 
 Se ha generado el escalar sup = 34.943
 # Resultados clave
 ✅ Tamaño muestral a usar (redondeado): 128
