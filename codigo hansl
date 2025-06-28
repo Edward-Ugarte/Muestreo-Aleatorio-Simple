@@ -1,61 +1,29 @@
-versión de Gretl 2025b
-Sesión actual: 2025-06-21 00:24
-
-# ===========================
+clear
 # 🧮 Estimación de tamaño muestral e IC
-# Versión Gretl 2025b - Parámetros calibrados
-# ===========================
-# === Parámetros poblacionales y de diseño ===
-? scalar sigma  = 100        # Desvío estándar poblacional
-Se ha reemplazado el escalar sigma = 100
-? scalar sigma2 = sigma^2
-Se ha reemplazado el escalar sigma2 = 10000
-? scalar E      = 15         # Error máximo aceptable
-Se ha reemplazado el escalar E = 15
-? scalar Z      = 1.96       # Valor z (95% de confianza)
-Se ha reemplazado el escalar Z = 1.96
-? scalar N      = 500        # Tamaño de población finita
-Se ha reemplazado el escalar N = 500
-? scalar media  = 20         # Nueva media poblacional esperada
-Se ha reemplazado el escalar media = 20
-# === Método A ===
-? scalar n_A1 = (Z^2 * sigma2) / E^2
-Se ha reemplazado el escalar n_A1 = 170.738
-? scalar n_A  = n_A1 / (1 + (n_A1 / N))
-Se ha reemplazado el escalar n_A = 127.276
-# === Método B ===
-? scalar n_B = (N * Z^2 * sigma2) / (N * E^2 + Z^2 * sigma2)
-Se ha reemplazado el escalar n_B = 127.276
-# === Método C ===
-? scalar n_C = sigma2 / ((E / Z)^2 + (sigma2 / N))
-Se ha reemplazado el escalar n_C = 127.276
-# === Método D: módulo redondeado ===
-? scalar n0 = (Z^2 * sigma2) / E^2
-Se ha reemplazado el escalar n0 = 170.738
-? scalar n_D = n0 / (1 + n0 / N)
-Se ha generado el escalar n_D = 127.276
-? scalar n_redondeado = ceil(n_D)
-Se ha generado el escalar n_redondeado = 128
-# === Comparación de tamaños muestrales ===
 
-🚀 ==== Tamaños muestrales estimados ====
-📊 Método A: 127.276
-📊 Método B: 127.276
-📊 Método C: 127.276
-📊 Método D (redondeado): 128
-# === Intervalo de confianza corregido ===
-? scalar f      = n_redondeado / N
-Se ha generado el escalar f = 0.256
-? scalar margen = Z * sigma / sqrt(n_redondeado) * sqrt(1 - f)
-Se ha generado el escalar margen = 14.943
-? scalar inf    = media - margen
-Se ha generado el escalar inf = 5.05701
-? scalar sup    = media + margen
-Se ha generado el escalar sup = 34.943
-# === Resultados del intervalo de confianza ===
+# Parámetros básicos
+scalar sigma  = 100
+scalar sigma2 = sigma^2
+scalar E      = 15
+scalar Z      = 1.96
+scalar N      = 500
+scalar media  = 20
 
-📐 Intervalo de confianza al 95% (n = 128):
-Media esperada: 20.00
-Margen de error corregido: 14.94
-Límite inferior: 5.06
-Límite superior: 34.94
+# Cálculo tamaño muestral (método A + corrección finita)
+scalar n_teorico  = (Z^2 * sigma2) / E^2
+scalar n_ajustado = n_teorico / (1 + n_teorico / N)
+scalar n_final    = ceil(n_ajustado)
+
+# Intervalo de confianza corregido
+scalar f      = n_final / N
+scalar margen = Z * sigma / sqrt(n_final) * sqrt(1 - f)
+scalar inf    = media - margen
+scalar sup    = media + margen
+
+# Resultados clave
+printf "✅ Tamaño muestral a usar (redondeado): %.0f\n", n_final
+printf "📐 IC al 95%% para media esperada %.2f:\n", media
+printf "   - Margen de error corregido: %.2f\n", margen
+printf "   - Límite inferior: %.2f\n", inf
+printf "   - Límite superior: %.2f\n", sup
+
