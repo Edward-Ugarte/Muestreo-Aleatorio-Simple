@@ -1,54 +1,43 @@
 versión de Gretl 2025b
-Sesión actual: 2025-06-27 01:51
+Sesión actual: 2025-06-27 23:36
 
-# ===========================
-# Estimación de tamaño muestral e IC – Gretl 2025b
-# ===========================
-# === Parámetros poblacionales y de diseño ===
+? clear
+# 🧮 Estimación de tamaño muestral e IC
+# Parámetros básicos
 ? scalar sigma  = 100
-Se ha reemplazado el escalar sigma = 100
+Se ha generado el escalar sigma = 100
 ? scalar sigma2 = sigma^2
-Se ha reemplazado el escalar sigma2 = 10000
+Se ha generado el escalar sigma2 = 10000
 ? scalar E      = 15
-Se ha reemplazado el escalar E = 15
+Se ha generado el escalar E = 15
 ? scalar Z      = 1.96
-Se ha reemplazado el escalar Z = 1.96
+Se ha generado el escalar Z = 1.96
 ? scalar N      = 500
-Se ha reemplazado el escalar N = 500
+Se ha generado el escalar N = 500
 ? scalar media  = 20
-Se ha reemplazado el escalar media = 20
-# === Métodos A, B y C ===
-? scalar n_A1 = (Z^2 * sigma2) / E^2
-Se ha reemplazado el escalar n_A1 = 170.738
-? scalar n_A  = n_A1 / (1 + n_A1 / N)
-Se ha reemplazado el escalar n_A = 127.276
-? scalar n_B  = (N * Z^2 * sigma2) / (N * E^2 + Z^2 * sigma2)
-Se ha reemplazado el escalar n_B = 127.276
-? scalar n_C  = sigma2 / ((E / Z)^2 + (sigma2 / N))
-Se ha reemplazado el escalar n_C = 127.276
-# === Selección conservadora (máximo redondeado)
-? scalar n = ceil(max(n_A, max(n_B, n_C)))
-Se ha generado el escalar n = 128
-# === Intervalo de confianza corregido ===
-? scalar f      = n / N
-Se ha reemplazado el escalar f = 0.256
-? scalar margen = Z * sigma / sqrt(n) * sqrt(1 - f)
-Se ha reemplazado el escalar margen = 14.943
+Se ha generado el escalar media = 20
+# Cálculo tamaño muestral (método A + corrección finita)
+? scalar n_teorico  = (Z^2 * sigma2) / E^2
+Se ha generado el escalar n_teorico = 170.738
+? scalar n_ajustado = n_teorico / (1 + n_teorico / N)
+Se ha generado el escalar n_ajustado = 127.276
+? scalar n_final    = ceil(n_ajustado)
+Se ha generado el escalar n_final = 128
+# Intervalo de confianza corregido
+? scalar f      = n_final / N
+Se ha generado el escalar f = 0.256
+? scalar margen = Z * sigma / sqrt(n_final) * sqrt(1 - f)
+Se ha generado el escalar margen = 14.943
 ? scalar inf    = media - margen
 Se ha generado el escalar inf = 5.05701
 ? scalar sup    = media + margen
 Se ha generado el escalar sup = 34.943
-# === Resultados ===
+# Resultados clave
+✅ Tamaño muestral a usar (redondeado): 128
+📐 IC al 95% para media esperada 20.00:
+   - Margen de error corregido: 14.94
+   - Límite inferior: 5.06
+   - Límite superior: 34.94
 
-🚀 ==== Tamaños muestrales estimados ====
-📊 Método A: 127.276
-📊 Método B: 127.276
-📊 Método C: 127.276
-✅ Tamaño muestral seleccionado: 128
 
-📐 Intervalo de confianza al 95% (n = 128):
-Media esperada: 20.00
-Margen de error corregido: 14.94
-Límite inferior: 5.06
-Límite superior: 34.94
 
