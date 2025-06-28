@@ -22,7 +22,7 @@ Este script en Hansl permite:
 Se presentan  tres métodos 
 
 🔄 Salidas del script
-- Tamaño muestral estimado por cada método (n_A, n_B, n_C )
-- Margen de error corregido
+- Tamaño muestral estimado por cada método (A, B, C )
+- Margen de error 
 - Límite inferior y superior del intervalo de confianza
 - Resumen numérico claro y etiquetado
